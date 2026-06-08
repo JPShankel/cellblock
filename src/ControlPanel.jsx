@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { parseRule } from './parseRule'
 
 // ── Drag-to-reorder hook ──────────────────────────────────────────────────────
@@ -288,6 +288,45 @@ function RuleList({ activeLayer, species, layers, dispatch }) {
   )
 }
 
+// ── Grid dimensions ───────────────────────────────────────────────────────────
+
+function GridControls({ grid, dispatch }) {
+  const [cols, setCols] = useState(String(grid.cols))
+  const [rows, setRows] = useState(String(grid.rows))
+
+  useEffect(() => {
+    setCols(String(grid.cols))
+    setRows(String(grid.rows))
+  }, [grid.cols, grid.rows])
+
+  const apply = () => {
+    const c = Math.max(1, Math.min(400, parseInt(cols, 10) || grid.cols))
+    const r = Math.max(1, Math.min(300, parseInt(rows, 10) || grid.rows))
+    setCols(String(c))
+    setRows(String(r))
+    // Fill the available canvas area (viewport minus panel and padding)
+    const availW = window.innerWidth - 273 - 56   // 272px panel + 1px border + 28px*2 padding
+    const availH = window.innerHeight - 56         // 28px*2 padding
+    const s = Math.max(2, Math.floor(Math.min(availW / c, availH / r)))
+    dispatch({ type: 'SET_GRID_DIMS', dims: { cols: c, rows: r, cellSize: s } })
+  }
+
+  const onKey = e => { if (e.key === 'Enter') { e.target.blur(); apply() } }
+
+  return (
+    <div className="grid-row">
+      <span className="section-label">Grid</span>
+      <input className="dim-input" type="number" value={cols}
+        onChange={e => setCols(e.target.value)} onBlur={apply} onKeyDown={onKey}
+        min="1" max="400" title="Columns" />
+      <span className="dim-sep">×</span>
+      <input className="dim-input" type="number" value={rows}
+        onChange={e => setRows(e.target.value)} onBlur={apply} onKeyDown={onKey}
+        min="1" max="300" title="Rows" />
+    </div>
+  )
+}
+
 // ── Simulation controls ───────────────────────────────────────────────────────
 
 function SimControls({ running, dispatch, onStep }) {
@@ -349,6 +388,8 @@ export default function ControlPanel({ state, dispatch, onStep, onNew, onSave, o
           >Reset</button>
         </div>
       </div>
+
+      <GridControls grid={state.grid} dispatch={dispatch} />
 
       <div className="panel-scrollable">
         <LayerList

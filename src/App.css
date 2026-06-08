@@ -147,6 +147,44 @@
   color: #a0a0f0;
 }
 
+/* ── Grid dimension row ────────────────────────────────────── */
+.grid-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px 7px 16px;
+  border-bottom: 1px solid #1a1a30;
+  flex-shrink: 0;
+  background: #0c0c1a;
+}
+
+.dim-input {
+  width: 44px;
+  background: #131326;
+  border: 1px solid #202040;
+  color: #7878b0;
+  padding: 3px 5px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-family: inherit;
+  outline: none;
+  text-align: center;
+  -moz-appearance: textfield;
+}
+
+.dim-input:focus {
+  border-color: #404080;
+  color: #c8c8e8;
+}
+
+.dim-input::-webkit-inner-spin-button,
+.dim-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+.dim-sep {
+  font-size: 10px;
+  color: #2e2e50;
+}
+
 /* ── Panel sections (Layers / Species / Rules) ─────────────── */
 .panel-section {
   display: flex;

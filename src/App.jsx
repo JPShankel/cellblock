@@ -223,6 +223,25 @@ function reducer(state, action) {
       }
     }
 
+    case 'SET_GRID_DIMS': {
+      const newGrid = { ...state.grid, ...action.dims }
+      const { cols, rows } = newGrid
+      if (cols === state.grid.cols && rows === state.grid.rows) {
+        return { ...state, grid: newGrid }
+      }
+      const bgId = state.species[0].id
+      const layers = state.layers.map(l => {
+        const cells = {}
+        for (let x = 0; x < cols; x++)
+          for (let y = 0; y < rows; y++) {
+            const key = `${x},${y}`
+            cells[key] = l.cells[key] ?? bgId
+          }
+        return { ...l, cells }
+      })
+      return { ...state, grid: newGrid, layers }
+    }
+
     case 'REORDER_LAYERS':
       return { ...state, layers: reorder(state.layers, action.from, action.to) }
 
