@@ -64,10 +64,10 @@ function reducer(state, action) {
   switch (action.type) {
 
     case 'PAINT_CELL': {
-      const { x, y } = action
+      const { x, y, speciesId } = action
       const layers = state.layers.map(l =>
         l.id !== state.activeLayerId ? l :
-        { ...l, cells: { ...l.cells, [`${x},${y}`]: state.activeSpeciesId } }
+        { ...l, cells: { ...l.cells, [`${x},${y}`]: speciesId } }
       )
       return { ...state, layers }
     }
@@ -294,9 +294,13 @@ export default function App() {
     if (forceErase || state.tool === 'erase') {
       dispatch({ type: 'ERASE_CELL', x, y })
     } else {
-      dispatch({ type: 'PAINT_CELL', x, y })
+      const pool = state.resetSpeciesIds
+      const speciesId = pool.length > 0
+        ? pool[Math.floor(Math.random() * pool.length)]
+        : state.activeSpeciesId
+      dispatch({ type: 'PAINT_CELL', x, y, speciesId })
     }
-  }, [state.tool])
+  }, [state.tool, state.resetSpeciesIds, state.activeSpeciesId])
 
   const doStep = useCallback(() => {
     const { layers, species } = stateRef.current

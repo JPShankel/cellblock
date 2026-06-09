@@ -106,6 +106,38 @@
   color: #3a3a60;
 }
 
+/* ── Examples picker ───────────────────────────────────────── */
+.examples-row {
+  padding: 6px 10px;
+  border-bottom: 1px solid #1a1a30;
+  flex-shrink: 0;
+  background: #0c0c1a;
+}
+
+.examples-select {
+  width: 100%;
+  background: #131326;
+  border: 1px solid #202040;
+  color: #5a5a8a;
+  padding: 4px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.1s, color 0.1s;
+}
+
+.examples-select:hover {
+  border-color: #404080;
+  color: #9898c8;
+}
+
+.examples-select option {
+  background: #131326;
+  color: #9898c8;
+}
+
 /* ── Tool selector ─────────────────────────────────────────── */
 .tool-row {
   display: flex;

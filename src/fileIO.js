@@ -20,6 +20,33 @@ export function saveToFile(state) {
   URL.revokeObjectURL(url)
 }
 
+export const EXAMPLES = [
+  { label: 'Conway Gliders',          file: 'Gliders.json' },
+  { label: 'Forest Fire',             file: 'ForestFire.json' },
+  { label: 'Crystals',                file: 'crystals.json' },
+  { label: 'Eat (RPS)',               file: 'eat.json' },
+  { label: 'Animating Patches',       file: 'animating-patches.json' },
+  { label: 'Food',                    file: 'food.json' },
+  { label: 'Abstract Impressionism',  file: 'abstract-impressionism.json' },
+  { label: 'Plasma',                  file: 'plasma.json' },
+  { label: 'Rain',                    file: 'rain.json' },
+  { label: 'Patches',                 file: 'patches.json' },
+]
+
+export async function loadExample(file, onLoad) {
+  const res = await fetch(`examples/${file}`)
+  if (!res.ok) { alert(`Could not load example "${file}"`); return }
+  try {
+    const data = await res.json()
+    if (!data.species?.length || !data.layers?.length || !data.grid) {
+      alert('Invalid example file.'); return
+    }
+    onLoad(data)
+  } catch {
+    alert('Could not parse example file.')
+  }
+}
+
 export function loadFromFile(onLoad) {
   const input = document.createElement('input')
   input.type = 'file'

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { parseRule } from './parseRule'
+import { EXAMPLES, loadExample } from './fileIO'
 
 // ── Drag-to-reorder hook ──────────────────────────────────────────────────────
 // onReorder(fromIndex, toIndex) is called with the display-order indices.
@@ -369,6 +370,20 @@ export default function ControlPanel({ state, dispatch, onStep, onNew, onSave, o
           <button className="file-btn" onClick={onLoad} title="Load from JSON file">Load</button>
         </div>
       </header>
+      <div className="examples-row">
+        <select
+          className="examples-select"
+          value=""
+          onChange={e => {
+            if (e.target.value) loadExample(e.target.value, data => dispatch({ type: 'LOAD_STATE', data }))
+          }}
+        >
+          <option value="" disabled>Load example…</option>
+          {EXAMPLES.map(ex => (
+            <option key={ex.file} value={ex.file}>{ex.label}</option>
+          ))}
+        </select>
+      </div>
 
       <div className="tool-row">
         <span className="section-label">Tool</span>
