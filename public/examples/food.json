@@ -10047,15 +10047,15 @@
       "rules": [
         {
           "id": "sr1",
-          "raw": "Init -> Color1 * 0.000001"
+          "raw": "Init -> Color1 * 0.0001"
         },
         {
           "id": "sr2",
-          "raw": "Init -> Color2 * 0.000001"
+          "raw": "Init -> Color2 * 0.0001"
         },
         {
           "id": "sr3",
-          "raw": "Init -> Color3 * 0.000001"
+          "raw": "Init -> Color3 * 0.0001"
         },
         {
           "id": "sr4",

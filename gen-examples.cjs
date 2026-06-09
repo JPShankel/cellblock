@@ -221,9 +221,9 @@ write('eat.json', {
     ],
     layers:[
       {id:'lsim',name:'Simulator',visible:true,cells:mkP(),rules:[
-        {id:'sr1', raw:'Init -> Color1 * 0.000001'},
-        {id:'sr2', raw:'Init -> Color2 * 0.000001'},
-        {id:'sr3', raw:'Init -> Color3 * 0.000001'},
+        {id:'sr1', raw:'Init -> Color1 * 0.0001'},
+        {id:'sr2', raw:'Init -> Color2 * 0.0001'},
+        {id:'sr3', raw:'Init -> Color3 * 0.0001'},
         {id:'sr4', raw:'Init + >=4Color1 -> Color1 * 1.0'},
         {id:'sr5', raw:'Init + >=4Color2 -> Color2 * 1.0'},
         {id:'sr6', raw:'Init + >=4Color3 -> Color3 * 1.0'},
